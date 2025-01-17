@@ -4,9 +4,9 @@ resource "aws_vpc" "vpc" {
 }
 
 # Créer une clé SSH
-resource "aws_key_pair" "my_key" {
-  key_name   = "my-key"
-  public_key = file("path/to/your/public/key/id_rsa.pub")
+data "aws_key_pair" "my_key" {
+  key_name   = "vockey"
+  
 }
 
 
