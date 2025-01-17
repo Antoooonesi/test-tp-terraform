@@ -4,10 +4,11 @@ resource "aws_vpc" "vpc" {
 }
 
 # Créer une clé SSH
-#resource "aws_key_pair" "my_key" {
- # key_name   = "my-terraform-key"
-  #public_key = file("C:/Users/Arrma/.ssh/id_rsa.pub")
-#}
+resource "aws_key_pair" "my_key" {
+  key_name   = "my-key"
+  public_key = file("path/to/your/public/key/id_rsa.pub")
+}
+
 
 # Groupe de sécurité pour SSH
 resource "aws_security_group" "ssh_sg" {
