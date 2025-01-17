@@ -5,9 +5,10 @@ pipeline {
         ansiColor('xterm')
     }
 
-    //parameters {
+    parameters {
         // Parameters
-    //}
+        booleanParam(name: 'DESTROY', defaultValue: false, description: 'Destroy')
+    }
 
     environment {
         // environment variables
