@@ -127,7 +127,7 @@ resource "aws_instance" "bastion" {
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_subnet.id
 
-  key_name               = aws_key_pair.my_key.key_name
+  key_name   = "vockey"
   vpc_security_group_ids = [aws_security_group.ssh_sg.id]
 
   tags = {
@@ -141,7 +141,7 @@ resource "aws_instance" "application" {
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private_subnet.id
 
-  key_name               = aws_key_pair.my_key.key_name
+  key_name   = "vockey"
   vpc_security_group_ids = [aws_security_group.app_sg.id]
 
   user_data = <<-EOF
