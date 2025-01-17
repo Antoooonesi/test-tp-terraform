@@ -17,6 +17,9 @@ pipeline {
 
     stages {
         stage('iac:terraform plan') {
+             when {
+                expression { params.DESTROY == false }
+            }
             steps {
                 script {
                     sh '''
@@ -28,16 +31,60 @@ pipeline {
         }
 
         stage('confirm:deploy') {
+            when {
+                expression { params.DESTROY == false }
+            }
             steps {
                 input(id: 'confirm', message: """
-                    You choose to deploy:
+                    You chose to deploy:
                     - branch: ${env.GIT_BRANCH}
-                    Do you confirm the deployment
+                    Do you confirm the deployment?
                 """)
             }
         }
 
-        stage('iac:terraform apply') {
+        stage('confirm:destroy') {
+            when {
+                expression { params.DESTROY == true }
+            }
+            steps {
+                input(id: 'confirm', message: """
+                    You chose to destroy:
+                    - branch: ${env.GIT_BRANCH}
+                    Do you confirm the destroy?
+                """)
+            }
+        }
+
+        stage('iac:terraform plan deploy') {
+            when {
+                expression { !params.DESTROY == false }
+            }
+            steps {
+                script {
+                    sh '''
+                        terraform plan
+                    '''
+                }
+            }
+        }
+        stage('iac:terraform plan destroy') {
+            when {
+                expression { params.DESTROY == false }
+            }
+            steps {
+                script {
+                    sh '''
+                        terraform plan -destroy
+                    '''
+                }
+            }
+        }
+
+       stage('iac:terraform apply') {
+        when {
+                expression { params.DESTROY == false }
+            }
             steps {
                 script {
                     sh '''
@@ -47,6 +94,20 @@ pipeline {
                 }
             }
         }
+
+        stage('iac:terraform destroy') {
+            when {
+                expression { params.DESTROY == true }
+            }
+            steps {
+                script {
+                    sh '''
+                        terraform apply -destroy -auto-approve
+                    '''
+                }
+            }
+        }
+    }
     }
 
     post { 
