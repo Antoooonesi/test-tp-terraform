@@ -14,13 +14,6 @@ terraform {
   }
 }
 
-resource "aws_dynamodb_table" "state_lock" {
-  name           = "table-jenkins-add"
-  hash_key       = "LockID"
-  read_capacity  = 5
-  write_capacity = 5
-}
-
 provider "aws" {
   region = "us-east-1"
 }
