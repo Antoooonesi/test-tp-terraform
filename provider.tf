@@ -16,12 +16,6 @@ terraform {
 
 provider "aws" {
   region = "eu-west-1"
-
-  default_tags {
-    tags = {
-      env = var.env
-    }
-  }
 }
 
 variable "subnet_a_ip" {
