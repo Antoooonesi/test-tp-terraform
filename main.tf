@@ -123,7 +123,7 @@ resource "aws_route_table_association" "private_subnet_assoc" {
 
 # Instance Ubuntu (bastion)
 resource "aws_instance" "bastion" {
-  ami           = "ami-04b4f1a9cf54c11d0"
+  ami           = "ami-085ad6ae776d8f09c"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_subnet.id
 
@@ -137,7 +137,7 @@ resource "aws_instance" "bastion" {
 
 # Instance application (HTTPD)
 resource "aws_instance" "application" {
-  ami           = "ami-04b4f1a9cf54c11d0"
+  ami           = "ami-085ad6ae776d8f09c"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private_subnet.id
 
