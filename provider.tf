@@ -7,10 +7,10 @@ terraform {
   }
   
   backend "s3" {
-    bucket         = "add-terraform-state-bucket"
+    bucket         = "add-terraform-state-bucket2"
     key            = "terraform/state"
     region         = "us-east-1"
-    dynamodb_table = "add"
+    dynamodb_table = "table-jenkins-add"
   }
 }
 
